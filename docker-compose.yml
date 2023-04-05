@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  sefa:
+    container_name: SeFa
+    hostname: SeFa
+    build:
+      context: ${PWD}
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    shm_size: 2gb
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: [gpu]
+            count: all
+    volumes:
+      - ${PWD}:/workspace
